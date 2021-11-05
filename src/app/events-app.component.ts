@@ -5,7 +5,7 @@ import { ConnectableObservable } from 'rxjs';
   selector: 'events-app',
   template: `
   <nav-bar></nav-bar>
-  <events-list></events-list>
+  <router-outlet></router-outlet>
   `
 })
 export class EventsAppComponent {
