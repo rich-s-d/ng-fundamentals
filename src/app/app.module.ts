@@ -17,6 +17,7 @@ import { ToastrService } from './common/toastr.service';
 import { appRoutes } from './routes';
 import { Error404Component } from './errors/404component';
 import { EventRouteActivator } from './events/event-details/event-route-activator.service';
+import { AuthService } from './user/auth.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { EventRouteActivator } from './events/event-details/event-route-activato
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [
     EventService,
@@ -41,6 +42,7 @@ import { EventRouteActivator } from './events/event-details/event-route-activato
       useValue: checkDirtyState
     },
     EventListResolver,
+    AuthService,
   ],
   bootstrap: [EventsAppComponent]
 })

@@ -4,17 +4,19 @@ import { IEvent } from "./event.model";
 
 @Injectable()
 export class EventService  {
-    getEvents():Observable<IEvent> {
-        let subject = new Subject<IEvent>();
-        setTimeout(() => {
-            subject.next(EVENTS);
-            subject.complete();
-        }, 100);
-        return subject;
+    getEvents():IEvent[] {
+        // let subject = new Subject<IEvent>();
+        // setTimeout(() => {
+        //     subject.next(EVENTS);
+        //     subject.complete();
+        // }, 100);
+        // return subject;
+        return EVENTS;
     }
 
     getEvent(id:number):IEvent {
-        return EVENTS.find(event => event.id === id);
+        let result = EVENTS.find(event => event.id === id);
+        return result as IEvent;
     }
 }
 
