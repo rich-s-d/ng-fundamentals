@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { EventRouteActivator } from "../event-details";
 import { IEvent } from "./event.model";
 
 @Injectable()
@@ -17,6 +18,12 @@ export class EventService  {
     getEvent(id:number):IEvent {
         let result = EVENTS.find(event => event.id === id);
         return result as IEvent;
+    }
+
+    saveEvent(event: any) {
+        event.id = 999;
+        event.session = [];
+        EVENTS.push(event);
     }
 }
 

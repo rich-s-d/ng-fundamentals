@@ -3,7 +3,8 @@ import {
     EventRouteActivator,
     EventListResolver,
     EventsListComponent,
-    CreateEventComponent
+    CreateEventComponent,
+    CreateSessionComponent,
 
     } from "./events/index";
 
@@ -42,6 +43,10 @@ export const appRoutes:Routes = [
         path: 'user',
         loadChildren: () => import('./user/user.module')
             .then(m => m.UserModule)
+    },
+    {
+        path: 'events/session/new',
+        component: CreateSessionComponent,
     },
 
     // {
