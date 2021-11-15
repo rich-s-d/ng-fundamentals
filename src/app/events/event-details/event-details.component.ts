@@ -27,8 +27,16 @@ export class EventDetailsComponent {
         this.addMode = true;
     }
 
-    saveNewSession() {
-        
+    saveNewSession(session: ISession) {
+        const nextID = Math.max.apply(null, this.event.sessions.map(s => s.id));
+        session.id = nextID + 1;
+        this.event.sessions.push(session);
+        this.eventService.updateEvent(this.event);
+        this.addMode = false;
+    }
+
+    cancelAddSession() {
+        this.addMode = false;
     }
 
 } 
