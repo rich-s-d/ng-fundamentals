@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { AuthService } from "./auth.service";
 import { Router } from "@angular/router";
+import { ToastrService } from "../common/toastr.service";
 
 @Component({
     templateUrl: './login.component.html',
@@ -10,13 +11,14 @@ import { Router } from "@angular/router";
 })
 
 export class LoginComponent {
-    constructor(private authService:AuthService, private router:Router){}
+    constructor(private authService:AuthService, private router:Router, private toastr:ToastrService){}
     userName:any;
     password:any;
     mouseoverLogin:boolean;
 
     login(formValues:any){
         this.authService.loginUser(formValues.userName, formValues.password);
+        this.toastr.success('Login successful');
         this.router.navigate(['events']);
     }
 
