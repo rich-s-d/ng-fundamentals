@@ -12,6 +12,7 @@ import {
   EventListResolver,
   CreateSessionComponent,
   SessionListComponent,
+  DurationPipe,
   
 } from './events/index'
 
@@ -36,6 +37,7 @@ import { AuthService } from './user/auth.service';
     CreateSessionComponent,
     SessionListComponent,
     CollapsibleWellComponent,
+    DurationPipe,
   ],
   imports: [
     BrowserModule,
