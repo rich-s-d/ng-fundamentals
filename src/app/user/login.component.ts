@@ -1,7 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { AuthService } from "./auth.service";
 import { Router } from "@angular/router";
-import { ToastrService } from "../common/toastr.service";
+import { Toastr, TOASTR_TOKEN } from "../common/toastr.service";
 
 @Component({
     templateUrl: './login.component.html',
@@ -11,7 +11,9 @@ import { ToastrService } from "../common/toastr.service";
 })
 
 export class LoginComponent {
-    constructor(private authService:AuthService, private router:Router, private toastr:ToastrService){}
+    constructor(private authService:AuthService, 
+        private router:Router, 
+        @Inject(TOASTR_TOKEN) private toastr:Toastr){}
     userName:any;
     password:any;
     mouseoverLogin:boolean;
