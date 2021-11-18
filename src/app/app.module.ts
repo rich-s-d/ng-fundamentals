@@ -20,7 +20,9 @@ import {
   JQUERY_TOKEN,
   TOASTR_TOKEN,
   Toastr,
-  CollapsibleWellComponent
+  CollapsibleWellComponent,
+  SimpleModalComponent,
+  ModalTriggerDirective,
 
 } from './common'
 
@@ -47,6 +49,9 @@ declare let jQuery:any; //= window['$'];
     SessionListComponent,
     CollapsibleWellComponent,
     DurationPipe,
+    SessionListComponent,
+    SimpleModalComponent,
+    ModalTriggerDirective,
   ],
   imports: [
     BrowserModule,
