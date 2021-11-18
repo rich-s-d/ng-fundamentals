@@ -13,6 +13,8 @@ import {
   CreateSessionComponent,
   SessionListComponent,
   DurationPipe,
+  UpvoteComponent,
+  VoterService,
   
 } from './events/index'
 
@@ -52,6 +54,7 @@ declare let jQuery:any; //= window['$'];
     SessionListComponent,
     SimpleModalComponent,
     ModalTriggerDirective,
+    UpvoteComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +82,7 @@ declare let jQuery:any; //= window['$'];
     },
     EventListResolver,
     AuthService,
+    VoterService,
   ],
   bootstrap: [EventsAppComponent]
 })
