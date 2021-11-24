@@ -1,19 +1,27 @@
 import { Injectable } from "@angular/core";
 //import { EventEmitter } from "events";
-import { Observable, Subject } from "rxjs";
+import { Observable, of } from "rxjs";
+import { catchError } from "rxjs/operators";
 import { EventRouteActivator } from "../event-details";
 import { IEvent, ISession } from "./event.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class EventService  {
-    getEvents():IEvent[] {
-        // let subject = new Subject<IEvent>();
-        // setTimeout(() => {
-        //     subject.next(EVENTS);
-        //     subject.complete();
-        // }, 100);
-        // return subject;
-        return EVENTS;
+
+    constructor(private http: HttpClient) {
+    }
+
+    getEvents():Observable<IEvent[]> {
+        return this.http.get<IEvent[]>('/api/events')
+            .pipe(catchError(this.handleError<IEvent[]>("getEvents", [])));
+    }
+
+    private handleError<T>(operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+            console.error(error);
+            return of(result as T);
+        }
     }
 
     getEvent(id:number):IEvent {
