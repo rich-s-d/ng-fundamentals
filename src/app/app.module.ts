@@ -17,6 +17,7 @@ import {
   UpvoteComponent,
   VoterService,
   LocationValidator,
+  EventResolver,
 
   
 } from './events/index'
@@ -35,7 +36,6 @@ import { EventsAppComponent } from './events-app.component';
 import { NavBarComponent } from './nav/navbar.component';
 import { appRoutes } from './routes';
 import { Error404Component } from './errors/404component';
-import { EventRouteActivator } from './events/event-details/event-route-activator.service';
 import { AuthService } from './user/auth.service';
 
 declare let toastr:Toastr; //= window['toastr'];
@@ -80,12 +80,8 @@ declare let jQuery:any; //= window['$'];
       provide: JQUERY_TOKEN,
       useValue: jQuery
     },
-    EventRouteActivator,
-    {
-      provide: 'canDeactivateCreateEvent',
-      useValue: checkDirtyState
-    },
     EventListResolver,
+    EventResolver,
     AuthService,
     VoterService,
   ],

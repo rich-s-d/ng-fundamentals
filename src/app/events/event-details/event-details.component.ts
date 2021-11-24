@@ -22,12 +22,10 @@ export class EventDetailsComponent {
     }
 
     ngOnInit() {
-        this.route.params.forEach((params: Params) => {
-            this.event = this.eventService.getEvent(+params['id']);
+        this.route.data.forEach((data) => {
+            this.event = data['joe'];
             this.addMode = false;
         })
-
-        this.event = this.eventService.getEvent(+this.route.snapshot.params['id']);
     }
 
     addSession() {
@@ -38,8 +36,9 @@ export class EventDetailsComponent {
         const nextID = Math.max.apply(null, this.event.sessions.map(s => s.id));
         session.id = nextID + 1;
         this.event.sessions.push(session);
-        this.eventService.updateEvent(this.event);
-        this.addMode = false;
+        this.eventService.saveEvent(this.event).subscribe((event) => {
+            this.addMode = false;
+        });
     }
 
     cancelAddSession() {

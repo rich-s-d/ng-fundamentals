@@ -2,9 +2,8 @@ import { Injectable } from "@angular/core";
 //import { EventEmitter } from "events";
 import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { EventRouteActivator } from "../event-details";
 import { IEvent, ISession } from "./event.model";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class EventService  {
@@ -17,44 +16,45 @@ export class EventService  {
             .pipe(catchError(this.handleError<IEvent[]>("getEvents", [])));
     }
 
+    getEvent(id:number):Observable<IEvent> {
+        return this.http.get<IEvent>('/api/events/' + id)
+            .pipe(catchError(this.handleError<IEvent>("getEvent")));
+    }
+
+    saveEvent(event: any) {
+        let options = { headers: new HttpHeaders({'Content-Type': 'application/json'})};
+        return this.http.post<IEvent>('/api/events', event, options)
+            .pipe(catchError(this.handleError<IEvent>("saveEvent")));
+    }
+
+    searchSessions(searchTerm: string): Observable<ISession[]>{
+        return this.http.get<ISession[]>('/api/sessions/search?search=' + searchTerm)
+            .pipe(catchError(this.handleError<ISession[]>("searchSessions")));
+    }
+
+    // searchSessions(searchTerm: string) {
+    //     let term = searchTerm.toLocaleLowerCase();
+    //     let results: ISession[] = [];
+
+    //     EVENTS.forEach(event => {
+    //         var matchingSessions = event.sessions.filter(session => session.name.toLocaleLowerCase().indexOf(term) > -1);
+    //         matchingSessions = matchingSessions.map((session: any) => {
+    //             session.eventId = event.id;
+    //             return session;
+    //         })
+    //         results = results.concat(matchingSessions);
+    //     });
+    //     return results;
+    // }
+
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             console.error(error);
             return of(result as T);
         }
     }
-
-    getEvent(id:number):IEvent {
-        let result = EVENTS.find(event => event.id === id);
-        return result as IEvent;
-    }
-
-    saveEvent(event: any) {
-        event.id = 999;
-        event.session = [];
-        EVENTS.push(event);
-    }
-
-    updateEvent(event: IEvent) {
-        let index = EVENTS.findIndex(x => x.id = event.id);
-        EVENTS[index] = event;
-    }
-
-    searchSessions(searchTerm: string) {
-        let term = searchTerm.toLocaleLowerCase();
-        let results: ISession[] = [];
-
-        EVENTS.forEach(event => {
-            var matchingSessions = event.sessions.filter(session => session.name.toLocaleLowerCase().indexOf(term) > -1);
-            matchingSessions = matchingSessions.map((session: any) => {
-                session.eventId = event.id;
-                return session;
-            })
-            results = results.concat(matchingSessions);
-        });
-        return results;
-    }
 }
+
 
 const EVENTS:IEvent[] = [
     {
