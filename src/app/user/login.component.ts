@@ -17,11 +17,20 @@ export class LoginComponent {
     userName:any;
     password:any;
     mouseoverLogin:boolean;
+    loginInvalid = false;
 
     login(formValues:any){
-        this.authService.loginUser(formValues.userName, formValues.password);
-        this.toastr.success('Login successful');
-        this.router.navigate(['events']);
+        this.authService.loginUser(formValues.userName, formValues.password)
+        .subscribe(resp => {
+            if(!resp) {
+                this.loginInvalid = true;
+                //this.toastr.success('Login unsuccessful');
+            } else {
+                this.toastr.success('Login successful');
+                this.router.navigate(['events']);
+            }
+        });
+
     }
 
     cancel() {

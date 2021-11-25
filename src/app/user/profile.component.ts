@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   private firstName: FormControl;
   private lastName: FormControl;
+
   constructor(private auth: AuthService, 
     private router:Router, 
     @Inject(TOASTR_TOKEN) private toastr: Toastr) {}
@@ -41,10 +42,19 @@ export class ProfileComponent implements OnInit {
 
   saveProfile(formValues: any) {
     if (this.profileForm.valid) {
-      this.auth.updateCurrentUser(formValues.firstName, formValues.lastName);
+      this.auth.updateCurrentUser(formValues.firstName, formValues.lastName)
+        .subscribe(() => {
+          this.toastr.success('Profile Saved');
+        });
       this.toastr.success('Profile Saved');
     }
+  }
 
+  logout() {
+    this.auth.logout().subscribe(() => {
+      this.router.navigate(['user/login']);
+      
+    })
   }
 
   validateLastName() {
